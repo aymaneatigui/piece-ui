@@ -1,7 +1,7 @@
 {
     "hooks": {
       "before:init": ["git pull"],
-      "after:bump": ["pnpm build"]
+      "after:bump": ["npm build"]
     }
   }
   
