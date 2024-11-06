@@ -1,6 +1,6 @@
 {
   "name": "piece-ui",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "author": {
     "name": "aymane atigui",
     "url": "https://x.com/pieceui"
@@ -9,7 +9,9 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/types.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rm -rf dist && rollup -c --bundleConfigAsCjs",
     "storybook": "storybook dev -p 6006",
