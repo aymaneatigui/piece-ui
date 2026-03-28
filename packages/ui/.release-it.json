@@ -1,7 +1,7 @@
 {
   "hooks": {
     "before:init": ["git pull"],
-    "after:bump": ["npm run build"]
+    "after:bump": ["pnpm run build"]
   },
   "git": {
     "commitMessage": "chore: release v${version}",

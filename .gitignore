@@ -1,5 +1,11 @@
-/node_modules
-storybook-static
+node_modules
 dist
-package.dev.json
-package.prod.json
+.next
+storybook-static
+.DS_Store
+*.tsbuildinfo
+.env
+.env.*
+.vercel
+.turbo
+package-lock.json
