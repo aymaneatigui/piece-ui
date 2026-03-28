@@ -1,14 +1,154 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* ── CSS Design Tokens ─────────────────────────────────── */
+:root {
+  --background: #0d0d0d;
+  --border-color: #333333;
+  --border-primary: #333333;
+  --white: #f5f4f4;
+  --light-gray: #b3b3b3;
+  --accent: #00bfff;
+  --accent-strong: #00f0ff;
+  --accent-gradient: linear-gradient(120deg, #00f0ff 0%, #7000ff 100%);
+}
 
 @layer base {
-  @font-face {
-    font-family: 'Inter';
-    src: url('../assets/fonts/Inter.ttf') format('truetype');
+  html {
+    background-color: var(--background);
+    color: var(--white);
+    font-family: system-ui, -apple-system, sans-serif;
   }
 
-  html {
-    font-family: 'Inter', system-ui, sans-serif;
+  /* Webkit autofill override */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--white);
+    -webkit-box-shadow: 0 0 0px 1000px #0d0d0d inset;
+    transition: background-color 5000s ease-in-out 0s;
   }
+}
+
+/* ── Animations ────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes fadeInLine {
+  from { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  to   { opacity: 1; transform: scaleY(1); transform-origin: top; }
+}
+
+@keyframes ping-slow {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── Custom Utility Classes ────────────────────────────── */
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-scroll-left {
+    animation: scroll-left 20s linear infinite;
+  }
+
+  .animate-scroll-right {
+    animation: scroll-right 20s linear infinite;
+  }
+
+  .animatedLine1,
+  .animatedLine2 {
+    animation: fadeInLine 1s ease forwards;
+  }
+
+  /* Pill button base */
+  .pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 8px 20px;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  /* Pill button — primary (ghost with border) */
+  .pill-btn-primary {
+    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--light-gray);
+  }
+
+  .pill-btn-primary:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--white);
+  }
+
+  /* Pill button — ghost accent */
+  .pill-btn-ghost {
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    background-color: transparent;
+    color: var(--accent-strong);
+  }
+
+  .pill-btn-ghost:hover {
+    background-color: rgba(0, 240, 255, 0.06);
+    border-color: rgba(0, 240, 255, 0.5);
+  }
+
+  /* Tag chip */
+  .pill-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(26, 28, 35, 0.6);
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+}
+
+/* ── Footer slide-link hover effect ───────────────────── */
+.footer-slide-link {
+  display: inline-grid;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+  height: 1em;
+  line-height: 1;
+}
+
+.footer-slide-link span {
+  display: block;
+  transform: translateY(0);
+  transition: transform 0.2s ease;
+}
+
+.footer-slide-link span:last-child {
+  transform: translateY(100%);
+}
+
+.footer-slide-link:hover span:first-child {
+  transform: translateY(-100%);
+}
+
+.footer-slide-link:hover span:last-child {
+  transform: translateY(0);
 }

@@ -1,7 +1,19 @@
 {
-    "hooks": {
-      "before:init": ["git pull"],
-      "after:bump": ["npm build"]
-    }
+  "hooks": {
+    "before:init": ["git pull"],
+    "after:bump": ["npm run build"]
+  },
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "tagName": "v${version}",
+    "tagAnnotation": "Release v${version}"
+  },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}"
+  },
+  "npm": {
+    "publish": true,
+    "publishPath": "."
   }
-  
+}
