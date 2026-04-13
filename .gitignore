@@ -9,3 +9,5 @@ storybook-static
 .vercel
 .turbo
 package-lock.json
+plan.md
+plan-later.md

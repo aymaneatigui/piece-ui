@@ -1,10 +1,9 @@
 {
   "hooks": {
-    "before:init": ["git pull"],
     "after:bump": ["pnpm run build"]
   },
   "git": {
-    "commitMessage": "chore: release v${version}",
+    "commitMessage": "chore: release v${version} [skip ci]",
     "tagName": "v${version}",
     "tagAnnotation": "Release v${version}"
   },
