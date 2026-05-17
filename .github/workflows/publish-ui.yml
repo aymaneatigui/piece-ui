@@ -60,7 +60,7 @@ jobs:
 
       - name: Release alpha (develop)
         if: github.ref == 'refs/heads/develop'
-        run: pnpm --filter piece-ui exec release-it --ci --preRelease=alpha --npm.tag=alpha
+        run: pnpm --filter piece-ui exec release-it --ci --preRelease=alpha --npm.tag=alpha --no-github.release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
