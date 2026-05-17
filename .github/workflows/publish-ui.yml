@@ -2,14 +2,14 @@ name: Publish piece-ui to npm
 
 on:
   push:
-    branches: [main, develop]
+    branches: [develop]
     paths:
       - 'packages/ui/**'
       - '.github/workflows/publish-ui.yml'
   workflow_dispatch:
     inputs:
       increment:
-        description: 'Version increment for main (ignored on develop)'
+        description: 'Version increment (stable release only)'
         type: choice
         required: false
         default: patch
@@ -66,16 +66,20 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Sync version from npm (stable)
-        if: github.ref == 'refs/heads/main'
-        run: |
-          PUBLISHED=$(npm view piece-ui version 2>/dev/null || echo "0.0.0")
-          echo "Latest published version: $PUBLISHED"
-          cd packages/ui && npm version "$PUBLISHED" --no-git-tag-version
-
       - name: Release stable (main)
         if: github.ref == 'refs/heads/main'
-        run: pnpm --filter piece-ui exec release-it --ci --increment=${{ github.event.inputs.increment || 'patch' }} --npm.tag=latest
+        run: |
+          INCREMENT="${{ github.event.inputs.increment || 'patch' }}"
+          PUBLISHED=$(npm view piece-ui versions --json | node -e "
+            const v = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
+            const stable = [].concat(v).filter(x => !x.includes('-')).pop();
+            if (stable) { console.log(stable); process.exit(0); }
+            const latest = [].concat(v).filter(x => x.includes('-')).pop();
+            console.log(latest ? latest.split('-')[0] : '0.0.0');
+          ")
+          NEXT=$(npx --yes semver -i "$INCREMENT" "$PUBLISHED")
+          echo "Latest stable: $PUBLISHED → next: $NEXT"
+          pnpm --filter piece-ui exec release-it "$NEXT" --ci --npm.tag=latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
