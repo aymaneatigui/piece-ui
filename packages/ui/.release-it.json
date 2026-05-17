@@ -1,14 +1,16 @@
 {
   "hooks": {
+    "before:init": ["git pull"],
     "after:bump": ["pnpm run build"]
   },
   "git": {
-    "commitMessage": "chore: release v${version} [skip ci]",
+    "commitMessage": "chore: release v${version}",
     "tagName": "v${version}",
     "tagAnnotation": "Release v${version}"
   },
   "github": {
-    "release": false
+    "release": true,
+    "releaseName": "v${version}"
   },
   "npm": {
     "publish": true,
