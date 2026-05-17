@@ -68,7 +68,18 @@ jobs:
 
       - name: Release stable (main)
         if: github.ref == 'refs/heads/main'
-        run: pnpm --filter piece-ui exec release-it --ci --increment=${{ github.event.inputs.increment || 'patch' }} --npm.tag=latest
+        run: |
+          INCREMENT="${{ github.event.inputs.increment || 'patch' }}"
+          PUBLISHED=$(npm view piece-ui versions --json | node -e "
+            const v = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
+            const stable = [].concat(v).filter(x => !x.includes('-')).pop();
+            if (stable) { console.log(stable); process.exit(0); }
+            const latest = [].concat(v).filter(x => x.includes('-')).pop();
+            console.log(latest ? latest.split('-')[0] : '0.0.0');
+          ")
+          NEXT=$(npx --yes semver -i "$INCREMENT" "$PUBLISHED")
+          echo "Latest stable: $PUBLISHED → next: $NEXT"
+          pnpm --filter piece-ui exec release-it "$NEXT" --ci --npm.tag=latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
