@@ -28,7 +28,7 @@ export const components: ComponentDoc[] = [
     name: "CheckboxGroup",
     slug: "checkbox-group",
     description:
-      "A checkbox list built from a plain array. Hand it your options and it manages selection for you — controlled or uncontrolled. Colour, size, and font weight are all props, so it drops into any design without overrides.",
+      "A checkbox list built from a plain array. Hand it your options and it manages selection for you — controlled or uncontrolled. It renders only the list, so it drops straight into a form or a wizard step; any card, heading or button around it stays yours. Colour, size, and font weight are props, so it restyles without overrides.",
     category: "form",
     badge: "new",
     props: [
@@ -114,13 +114,54 @@ export default function Example() {
   );
 }`,
       },
+      {
+        label: "As a step in your own card — the card is yours, not the component's",
+        code: `import { useState } from "react";
+import { CheckboxGroup } from "piece-ui";
+
+const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+// CheckboxGroup renders ONLY the list. The card, heading and button below
+// are plain markup you own — compose whatever you need around it.
+export default function WorkingDaysStep({ onContinue }) {
+  const [days, setDays] = useState(["Monday", "Tuesday"]);
+
+  return (
+    <div className="rounded-3xl bg-white p-7">
+      <h3 className="text-lg font-bold text-gray-900">Set Company Working days</h3>
+      <p className="mt-1 text-gray-500">
+        Select your company working days, and uncheck non-working days
+      </p>
+
+      <div className="my-6">
+        <CheckboxGroup
+          options={DAYS}
+          value={days}
+          onChange={setDays}
+          accentColor="#3b82f6"
+          labelColor="#374151"
+          borderColor="#d1d5db"
+          weight="medium"
+        />
+      </div>
+
+      <button
+        onClick={() => onContinue(days)}
+        className="w-full rounded-full bg-[#3b82f6] py-3.5 font-bold text-white"
+      >
+        Continue
+      </button>
+    </div>
+  );
+}`,
+      },
     ],
   },
   {
     name: "ChipGroup",
     slug: "chip-group",
     description:
-      "The same selection list as CheckboxGroup, wearing pill-shaped chips instead. Identical props, so you can swap one for the other by renaming the component. Set multiple={false} to make it behave like a radio group.",
+      "The same selection list as CheckboxGroup, wearing pill-shaped chips instead. Identical props, so you can swap one for the other by renaming the component. It renders only the chips — no card, heading or button — so it slots straight into a form or a wizard step. Set multiple={false} to make it behave like a radio group.",
     category: "form",
     badge: "new",
     props: [
@@ -186,6 +227,30 @@ export default function Example() {
       size="lg"
       weight="bold"
     />
+  );
+}`,
+      },
+      {
+        label: "As one field in a form — nothing else comes with it",
+        code: `import { useState } from "react";
+import { ChipGroup } from "piece-ui";
+
+const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+// ChipGroup renders ONLY the chips — it is just another form field.
+export default function SettingsForm() {
+  const [days, setDays] = useState(["Monday", "Tuesday"]);
+
+  return (
+    <form onSubmit={(e) => e.preventDefault()}>
+      <label className="mb-2 block font-medium">Working days</label>
+      <ChipGroup options={DAYS} value={days} onChange={setDays} />
+
+      <label className="mt-6 mb-2 block font-medium">Timezone</label>
+      <input name="tz" className="w-full rounded-lg border px-3 py-2" />
+
+      <button type="submit" className="mt-6">Save</button>
+    </form>
   );
 }`,
       },
