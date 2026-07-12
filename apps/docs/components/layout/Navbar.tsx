@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { installSpec } from "@/lib/component-sources";
 import { Menu, X, Github, ExternalLink } from "lucide-react";
 
 const navLinks = [
@@ -97,7 +98,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="hidden sm:flex items-center gap-1.5 text-sm font-mono bg-accent/10 hover:bg-accent/20 text-accent border border-accent/20 px-3 py-2 rounded-lg transition-colors"
           >
-            npm i piece-ui
+            {`npm i ${installSpec}`}
             <ExternalLink size={11} />
           </a>
           <button
@@ -143,7 +144,7 @@ export default function Navbar() {
                 <Github size={15} /> GitHub
               </a>
               <code className="text-sm text-accent font-mono px-3 py-2 bg-accent/10 rounded-lg">
-                npm install piece-ui
+                {`npm install ${installSpec}`}
               </code>
             </div>
           </div>

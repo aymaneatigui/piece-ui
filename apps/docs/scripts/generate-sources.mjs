@@ -12,6 +12,11 @@ const outFile = join(here, "..", "lib", "component-sources.ts");
 
 const { version } = JSON.parse(readFileSync(join(uiRoot, "package.json"), "utf8"));
 
+// "1.0.0-alpha.8" -> tag "alpha"; "1.0.1" -> tag "latest".
+const prerelease = version.includes("-") ? version.split("-")[1].split(".")[0] : null;
+const tag = prerelease ?? "latest";
+const spec = prerelease ? `piece-ui@${prerelease}` : "piece-ui";
+
 const toSlug = (name) =>
   name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").replace(/([A-Z])(\d)/g, "$1$2").toLowerCase();
 
@@ -45,6 +50,17 @@ writeFileSync(
 
 /** The version of piece-ui these sources were generated from. */
 export const packageVersion = ${JSON.stringify(version)};
+
+/**
+ * The npm dist-tag this version publishes under — "alpha" while prereleasing,
+ * "latest" once stable. Docs must install THIS tag: a bare \`npm install piece-ui\`
+ * resolves to \`latest\`, which during an alpha line is an older build that may not
+ * contain the component the visitor is reading about.
+ */
+export const installTag = ${JSON.stringify(tag)};
+
+/** The install spec to show in docs, e.g. "piece-ui@alpha". */
+export const installSpec = ${JSON.stringify(spec)};
 
 export type ComponentSource = {
   name: string;

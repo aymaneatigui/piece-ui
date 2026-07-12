@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Github, Package, Zap, Code2, Layers } from "lucide-react";
 import { components } from "@/lib/components-data";
+import { installSpec } from "@/lib/component-sources";
 import Badge from "@/components/ui/Badge";
 import { TerminalBlock } from "@/components/ui/CodeBlock";
 
@@ -107,7 +108,7 @@ export default function HomePage() {
           className="max-w-sm mx-auto animate-fade-up"
           style={{ animationDelay: "0.24s", opacity: 0 }}
         >
-          <TerminalBlock command="npm install piece-ui" />
+          <TerminalBlock command={`npm install ${installSpec}`} />
         </div>
 
         {/* Stats */}
@@ -218,7 +219,7 @@ export default function HomePage() {
               Install piece-ui, import your components, and ship. No build steps, no configuration.
             </p>
             <div className="max-w-sm mx-auto mb-8">
-              <TerminalBlock command="npm install piece-ui" />
+              <TerminalBlock command={`npm install ${installSpec}`} />
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link

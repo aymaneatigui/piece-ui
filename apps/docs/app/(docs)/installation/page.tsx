@@ -5,6 +5,7 @@ import { InlineCode } from "@/components/ui/CodeBlock";
 import { Check } from "lucide-react";
 import Link from "next/link";
 import { components } from "@/lib/components-data";
+import { installSpec } from "@/lib/component-sources";
 
 export const metadata: Metadata = {
   title: "Installation",
@@ -72,12 +73,12 @@ export default function App() {
 const frameworkCode = `# Next.js
 npx create-next-app@latest my-app --typescript --tailwind
 cd my-app
-npm install piece-ui framer-motion
+npm install ${installSpec} framer-motion
 
 # Vite + React
 npm create vite@latest my-app -- --template react-ts
 cd my-app
-npm install tailwindcss autoprefixer postcss framer-motion piece-ui`;
+npm install tailwindcss autoprefixer postcss framer-motion ${installSpec}`;
 
 const copyUsageCode = `// Copy the component source from the docs
 // and paste it into your components/ folder.
@@ -149,7 +150,7 @@ export default function InstallationPage() {
           <h2 className="text-lg font-semibold">Install piece-ui</h2>
         </div>
         <p className="text-text-muted text-sm mb-3">Install the package and its peer dependencies:</p>
-        <TerminalBlock command="npm install piece-ui framer-motion" />
+        <TerminalBlock command={`npm install ${installSpec} framer-motion`} />
         <p className="text-text-muted text-xs mt-3">
           Using yarn?{" "}
           <InlineCode>yarn add piece-ui framer-motion</InlineCode>

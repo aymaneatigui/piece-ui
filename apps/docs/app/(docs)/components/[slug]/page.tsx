@@ -7,7 +7,7 @@ import Badge from "@/components/ui/Badge";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import ComponentShowcase from "@/components/previews/ComponentShowcase";
-import { getSource } from "@/lib/component-sources";
+import { getSource, installSpec } from "@/lib/component-sources";
 
 export async function generateStaticParams() {
   return components.map((c) => ({ slug: c.slug }));
@@ -82,7 +82,7 @@ export default async function ComponentPage({
         <div className="space-y-4">
           <div>
             <p className="text-sm text-text-muted mb-2.5">Install the package:</p>
-            <TerminalBlock command="npm install piece-ui" />
+            <TerminalBlock command={`npm install ${installSpec}`} />
           </div>
           <div>
             <p className="text-sm text-text-muted mb-2.5">Import the component:</p>
