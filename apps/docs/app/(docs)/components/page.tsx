@@ -6,7 +6,7 @@ import { ArrowRight, Sparkles, Layers, Code2, Star } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Components",
-  description: "Browse all 17 Piece UI components with live examples and documentation.",
+  description: `Browse all ${components.length} Piece UI components with live examples and documentation.`,
 };
 
 const categoryIcons: Record<string, React.ReactNode> = {

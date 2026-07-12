@@ -5,6 +5,9 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    // Previews render the real components, so Tailwind must see the package's
+    // class names too — otherwise they get purged and the preview renders bare.
+    "../../packages/ui/dist/**/*.{js,mjs}",
   ],
   theme: {
     extend: {

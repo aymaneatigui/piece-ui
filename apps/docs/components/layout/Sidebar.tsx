@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { components } from "@/lib/components-data";
+import { packageVersion } from "@/lib/component-sources";
 
 const sidebarSections = [
   {
@@ -83,7 +84,7 @@ export default function Sidebar() {
           ))}
 
           <div className="pt-4 border-t border-border px-2.5">
-            <span className="text-xs font-mono text-text-muted">v1.0.0-alpha.3</span>
+            <span className="text-xs font-mono text-text-muted">v{packageVersion}</span>
           </div>
         </div>
       </div>

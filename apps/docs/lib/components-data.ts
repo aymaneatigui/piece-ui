@@ -25,6 +25,173 @@ export type ComponentDoc = {
 
 export const components: ComponentDoc[] = [
   {
+    name: "CheckboxGroup",
+    slug: "checkbox-group",
+    description:
+      "A checkbox list built from a plain array. Hand it your options and it manages selection for you — controlled or uncontrolled. Colour, size, and font weight are all props, so it drops into any design without overrides.",
+    category: "form",
+    badge: "new",
+    props: [
+      { name: "options", type: "(string | { label, value?, disabled? })[]", required: true, description: "The list to render. Plain strings work; use objects for per-item control." },
+      { name: "value", type: "string[]", required: false, description: "Controlled selection. Omit to let the component manage its own state." },
+      { name: "defaultValue", type: "string[]", required: false, default: "[]", description: "Initial selection when uncontrolled." },
+      { name: "onChange", type: "(value: string[]) => void", required: false, description: "Fires with the full next selection whenever it changes." },
+      { name: "onSelect", type: "(value: string, checked: boolean) => void", required: false, description: "Fires for the single item that was just toggled." },
+      { name: "size", type: '"sm" | "md" | "lg"', required: false, default: '"md"', description: "Box and label size." },
+      { name: "weight", type: '"normal" | "medium" | "semibold" | "bold"', required: false, default: '"normal"', description: "Label font weight." },
+      { name: "accentColor", type: "string", required: false, default: '"#3b82f6"', description: "Fill colour of a checked box." },
+      { name: "checkColor", type: "string", required: false, default: '"#ffffff"', description: "Colour of the checkmark itself." },
+      { name: "borderColor", type: "string", required: false, description: "Border colour of an unchecked box." },
+      { name: "labelColor", type: "string", required: false, default: '"inherit"', description: "Label colour. Inherits from the parent by default." },
+      { name: "fontFamily", type: "string", required: false, description: "Overrides the font for the whole group." },
+      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disables every item at once." },
+    ],
+    examples: [
+      {
+        label: "Give it a list — that's it",
+        code: `import { CheckboxGroup } from "piece-ui";
+
+export default function Example() {
+  return (
+    <CheckboxGroup
+      options={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+      defaultValue={["Monday", "Tuesday"]}
+      onChange={(days) => console.log(days)}
+    />
+  );
+}`,
+      },
+      {
+        label: "Controlled",
+        code: `import { useState } from "react";
+import { CheckboxGroup } from "piece-ui";
+
+const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+export default function Example() {
+  const [days, setDays] = useState(["Monday", "Tuesday"]);
+
+  return (
+    <>
+      <CheckboxGroup options={DAYS} value={days} onChange={setDays} />
+      <p>Working days: {days.join(", ")}</p>
+    </>
+  );
+}`,
+      },
+      {
+        label: "Restyled — colour, size, weight",
+        code: `import { CheckboxGroup } from "piece-ui";
+
+export default function Example() {
+  return (
+    <CheckboxGroup
+      options={["Monday", "Tuesday", "Wednesday"]}
+      defaultValue={["Monday"]}
+      accentColor="#10b981"
+      labelColor="#374151"
+      size="lg"
+      weight="semibold"
+    />
+  );
+}`,
+      },
+      {
+        label: "Disabling individual items",
+        code: `import { CheckboxGroup } from "piece-ui";
+
+export default function Example() {
+  return (
+    <CheckboxGroup
+      options={[
+        "Monday",
+        "Tuesday",
+        { label: "Saturday", disabled: true },
+        { label: "Sunday", disabled: true },
+      ]}
+      defaultValue={["Monday"]}
+    />
+  );
+}`,
+      },
+    ],
+  },
+  {
+    name: "ChipGroup",
+    slug: "chip-group",
+    description:
+      "The same selection list as CheckboxGroup, wearing pill-shaped chips instead. Identical props, so you can swap one for the other by renaming the component. Set multiple={false} to make it behave like a radio group.",
+    category: "form",
+    badge: "new",
+    props: [
+      { name: "options", type: "(string | { label, value?, disabled? })[]", required: true, description: "The list to render. Plain strings work; use objects for per-item control." },
+      { name: "value", type: "string[]", required: false, description: "Controlled selection. Omit to let the component manage its own state." },
+      { name: "defaultValue", type: "string[]", required: false, default: "[]", description: "Initial selection when uncontrolled." },
+      { name: "onChange", type: "(value: string[]) => void", required: false, description: "Fires with the full next selection whenever it changes." },
+      { name: "onSelect", type: "(value: string, selected: boolean) => void", required: false, description: "Fires for the single chip that was just toggled." },
+      { name: "multiple", type: "boolean", required: false, default: "true", description: "Set false to behave like a radio group — only one chip at a time." },
+      { name: "size", type: '"sm" | "md" | "lg"', required: false, default: '"md"', description: "Chip padding and label size." },
+      { name: "weight", type: '"normal" | "medium" | "semibold" | "bold"', required: false, default: '"semibold"', description: "Label font weight." },
+      { name: "accentColor", type: "string", required: false, default: '"#3b82f6"', description: "Background of a selected chip." },
+      { name: "selectedLabelColor", type: "string", required: false, default: '"#ffffff"', description: "Label colour of a selected chip." },
+      { name: "chipColor", type: "string", required: false, default: '"transparent"', description: "Background of an unselected chip." },
+      { name: "borderColor", type: "string", required: false, description: "Border colour of an unselected chip." },
+      { name: "labelColor", type: "string", required: false, default: '"inherit"', description: "Label colour of an unselected chip." },
+      { name: "fontFamily", type: "string", required: false, description: "Overrides the font for the whole group." },
+      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disables every chip at once." },
+    ],
+    examples: [
+      {
+        label: "Give it a list — that's it",
+        code: `import { ChipGroup } from "piece-ui";
+
+export default function Example() {
+  return (
+    <ChipGroup
+      options={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+      defaultValue={["Monday", "Tuesday"]}
+      onChange={(days) => console.log(days)}
+    />
+  );
+}`,
+      },
+      {
+        label: "Single select",
+        code: `import { ChipGroup } from "piece-ui";
+
+export default function Example() {
+  return (
+    <ChipGroup
+      options={["Daily", "Weekly", "Monthly"]}
+      defaultValue={["Weekly"]}
+      multiple={false}
+      onChange={([plan]) => console.log(plan)}
+    />
+  );
+}`,
+      },
+      {
+        label: "Restyled — colour, size, weight",
+        code: `import { ChipGroup } from "piece-ui";
+
+export default function Example() {
+  return (
+    <ChipGroup
+      options={["Monday", "Tuesday", "Wednesday"]}
+      defaultValue={["Monday"]}
+      accentColor="#10b981"
+      chipColor="#f9fafb"
+      borderColor="#e5e7eb"
+      labelColor="#374151"
+      size="lg"
+      weight="bold"
+    />
+  );
+}`,
+      },
+    ],
+  },
+  {
     name: "Button",
     slug: "button",
     description:

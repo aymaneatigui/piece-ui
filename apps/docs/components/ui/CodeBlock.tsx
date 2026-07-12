@@ -2,6 +2,7 @@
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import CopyButton from "./CopyButton";
+import DownloadButton from "./DownloadButton";
 import { cn } from "@/lib/utils";
 
 const theme = {
@@ -55,11 +56,14 @@ export default function CodeBlock({
   code,
   language = "tsx",
   filename,
+  downloadName,
   className,
 }: {
   code: string;
   language?: string;
   filename?: string;
+  /** When set, a Download button appears and saves the code under this filename. */
+  downloadName?: string;
   className?: string;
 }) {
   return (
@@ -77,6 +81,7 @@ export default function CodeBlock({
         </div>
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-mono text-text-muted uppercase">{language}</span>
+          {downloadName && <DownloadButton text={code} filename={downloadName} />}
           <CopyButton text={code} />
         </div>
       </div>

@@ -10,4 +10,6 @@ storybook-static
 .turbo
 package-lock.json
 
-docs/
+# Anchored: this hides the private /docs notes at the repo root only.
+# Unanchored ("docs/") would also swallow apps/docs — the entire docs site.
+/docs/

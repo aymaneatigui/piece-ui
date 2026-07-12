@@ -4,6 +4,7 @@ import { TerminalBlock } from "@/components/ui/CodeBlock";
 import { InlineCode } from "@/components/ui/CodeBlock";
 import { Check } from "lucide-react";
 import Link from "next/link";
+import { components } from "@/lib/components-data";
 
 export const metadata: Metadata = {
   title: "Installation",
@@ -239,7 +240,7 @@ export default function InstallationPage() {
             className="p-4 rounded-xl border border-border bg-surface hover:border-accent/30 hover:bg-surface-2 transition-all group"
           >
             <div className="font-medium mb-1 group-hover:text-accent transition-colors">Browse Components →</div>
-            <div className="text-sm text-text-muted">See all 17 components with examples and props.</div>
+            <div className="text-sm text-text-muted">{`See all ${components.length} components with examples and props.`}</div>
           </Link>
           <Link
             href="/changelog"

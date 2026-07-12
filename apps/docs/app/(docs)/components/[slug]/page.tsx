@@ -6,7 +6,8 @@ import { TerminalBlock } from "@/components/ui/CodeBlock";
 import Badge from "@/components/ui/Badge";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import ComponentPreview from "@/components/previews/ComponentPreview";
+import ComponentShowcase from "@/components/previews/ComponentShowcase";
+import { getSource } from "@/lib/component-sources";
 
 export async function generateStaticParams() {
   return components.map((c) => ({ slug: c.slug }));
@@ -40,6 +41,7 @@ export default async function ComponentPage({
   const nextComponent = idx < components.length - 1 ? components[idx + 1] : null;
 
   const importCode = `import { ${component.name} } from "piece-ui";`;
+  const source = getSource(slug);
 
   return (
     <div className="py-10 max-w-3xl">
@@ -62,9 +64,13 @@ export default async function ComponentPage({
         <p className="text-lg text-text-secondary leading-relaxed">{component.description}</p>
       </div>
 
-      {/* Preview */}
+      {/* Preview / Code */}
       <section className="mb-12">
-        <ComponentPreview slug={slug} />
+        <ComponentShowcase
+          slug={slug}
+          source={source?.source}
+          filename={source?.filename}
+        />
       </section>
 
       {/* Installation */}

@@ -69,7 +69,7 @@ export default function HomePage() {
           style={{ animationDelay: "0.08s", opacity: 0 }}
         >
           A dark-mode React component library.{" "}
-          <span className="text-text-primary font-medium">17 production-ready components</span>{" "}
+          <span className="text-text-primary font-medium">{components.length} production-ready components</span>{" "}
           built with TypeScript, Tailwind CSS, and Framer Motion.
         </p>
 

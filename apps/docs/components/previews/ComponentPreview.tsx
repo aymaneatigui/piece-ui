@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 const previews: Record<string, React.ComponentType> = {
   "button": dynamic(() => import("./ButtonPreview")),
   "checkbox": dynamic(() => import("./CheckboxPreview")),
+  "checkbox-group": dynamic(() => import("./CheckboxGroupPreview")),
+  "chip-group": dynamic(() => import("./ChipGroupPreview")),
   "confirm-dialog": dynamic(() => import("./ConfirmDialogPreview")),
   "contact-form": dynamic(() => import("./ContactFormPreview")),
   "custom-btn": dynamic(() => import("./CustomBtnPreview")),
