@@ -24,13 +24,11 @@ const previews: Record<string, React.ComponentType> = {
   "line2": dynamic(() => import("./Line2Preview")),
 };
 
+// Renders the preview bare. ComponentShowcase owns the surrounding frame —
+// wrapping it here too would draw a second border inside the first.
 export default function ComponentPreview({ slug }: { slug: string }) {
   const Preview = previews[slug];
   if (!Preview) return null;
 
-  return (
-    <div className="rounded-xl border border-border bg-surface/50 p-6 flex items-center justify-center min-h-[160px]">
-      <Preview />
-    </div>
-  );
+  return <Preview />;
 }
