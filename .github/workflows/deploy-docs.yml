@@ -74,9 +74,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
-            cd ~/projects
+            # The compose stack lives in ~/atigui — that is where
+            # atigui-projects-infra rsyncs it and runs docker compose from.
+            cd ~/atigui
             docker compose pull pieceui-docs
             docker compose up -d pieceui-docs
             docker image prune -f
-
-            grep -i npm ~/.zshrc
