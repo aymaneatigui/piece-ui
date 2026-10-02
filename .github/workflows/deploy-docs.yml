@@ -62,16 +62,16 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
-    name: SSH to EC2 and redeploy
+    name: SSH to server and redeploy
     needs: build-push
     runs-on: ubuntu-latest
     steps:
       - name: Redeploy pieceui-docs on atigui-projects-server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: ubuntu
+          key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             set -e
             # The compose stack lives in ~/atigui — that is where
